@@ -18,6 +18,7 @@
 package org.aerogear.android.pipeline;
 
 import android.util.Log;
+import org.aerogear.android.AdapterFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;

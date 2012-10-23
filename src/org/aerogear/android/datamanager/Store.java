@@ -15,23 +15,22 @@
  * limitations under the License.
  */
 
-package org.aerogear.android.pipeline;
+package org.aerogear.android.datamanager;
 
-import org.aerogear.android.core.HttpRestProvider;
+import java.util.List;
 
-import java.net.URL;
+/**
+ * Represents an abstraction layer for a storage system.
+ */
+public interface Store<T> {
 
-import static org.aerogear.android.pipeline.Type.REST;
+    public StoreType getType();
 
-final class AdapterFactory {
-
-    private AdapterFactory() {}
-
-    public static Pipe createPipe(Type type, Class klass, URL url) {
-        if (type.equals(REST)) {
-            return new RestAdapter(klass, new HttpRestProvider(url));
-        }
-        throw new IllegalArgumentException("Type is not supported yet");
-    }
+    public List<T> readAll();
+    public T read(String id);
+    public void filter();
+    public void save(T item);
+    public void reset();
+    public void remove(T item);
 
 }
