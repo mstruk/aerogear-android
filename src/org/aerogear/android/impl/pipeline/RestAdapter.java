@@ -72,8 +72,9 @@ final class RestAdapter<T> implements Pipe<T> {
             @Override
             protected AsyncTaskResult doInBackground(Void... voids) {
                 try {
-                    
-                    T[] resultArray = gson.fromJson(new String(httpProvider.get()), arrayKlass);
+                    byte[] responseBody = httpProvider.get();
+                    String responseAsString = new String(responseBody, "utf-8");
+                    T[] resultArray = gson.fromJson(responseAsString, arrayKlass);
                     
                     return new AsyncTaskResult(Arrays.asList(resultArray));
                 } catch (Exception e) {
@@ -118,10 +119,13 @@ final class RestAdapter<T> implements Pipe<T> {
             @Override
             protected AsyncTaskResult doInBackground(Void... voids) {
                 try {
+                    String body;
                     if (id == null || id.length() == 0) {
-                        httpProvider.post(gson.toJson(data));
+                        body = gson.toJson(data);
+                        httpProvider.post(body);
                     } else {
-                        httpProvider.put(id, gson.toJson(data));
+                        body = gson.toJson(data);
+                        httpProvider.put(id, body);
                     }
                     return new AsyncTaskResult(null);
                 } catch (Exception e) {
