@@ -30,6 +30,13 @@ public final class DefaultPipeFactory implements PipeFactory {
 
     @Override
     public <T> Pipe<T> createPipe(Class<T> klass, PipeConfig config) {
+
+        if (config.getBaseURL() == null)
+            throw new IllegalArgumentException("baseURL is null");
+
+        if (config.getEndpoint() == null)
+            throw new IllegalArgumentException("endpoint is null");
+
         Pipe<T> createdPipe;
         if (config.getType().equals(PipeTypes.REST)) {
             URL url = appendEndpoint(config.getBaseURL(), config.getEndpoint());

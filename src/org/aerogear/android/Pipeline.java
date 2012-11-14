@@ -96,14 +96,26 @@ public class Pipeline {
     }
 
     public Pipe pipe(Class klass) {
-        PipeConfig config = new PipeConfig(baseURL, klass);
+        PipeConfig config = new PipeConfig();
         return pipe(klass, config);
     }
 
     public Pipe pipe(Class klass, PipeConfig config) {
+        fillMissingValues(klass, config);
         Pipe pipe = pipeFactory.createPipe(klass, config);
         pipes.put(config.getName(), pipe);
         return pipe;
+    }
+
+    private void fillMissingValues(Class klass, PipeConfig config) {
+        if (config.getBaseURL() == null)
+            config.setBaseURL(baseURL);
+
+        if (config.getName() == null)
+            config.setName(klass.getSimpleName().toLowerCase());
+
+        if (config.getEndpoint() == null)
+            config.setEndpoint(klass.getSimpleName().toLowerCase());
     }
 
     /**

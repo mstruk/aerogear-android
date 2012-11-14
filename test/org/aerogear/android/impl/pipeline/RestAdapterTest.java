@@ -87,7 +87,8 @@ public class RestAdapterTest {
         GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Point.class, new RestAdapterTest.PointTypeAdapter());
 
         DefaultPipeFactory factory = new DefaultPipeFactory();
-        PipeConfig pc = new PipeConfig(url, RestAdapterTest.ListClassId.class);
+        PipeConfig pc = new PipeConfig(url);
+        pc.setEndpoint(RestAdapterTest.ListClassId.class.getName());
         
         pc.setGsonBuilder(builder);
         Pipe<RestAdapterTest.ListClassId> restPipe = factory.createPipe(RestAdapterTest.ListClassId.class, pc);

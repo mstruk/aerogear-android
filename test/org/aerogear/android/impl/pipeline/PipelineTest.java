@@ -45,7 +45,7 @@ public class PipelineTest {
     public void testRegisterPipeFactory() throws MalformedURLException {
         Pipeline pipeline = new Pipeline(url, new StubPipeFactory());
 
-        Pipe stubPipe = pipeline.pipe(Data.class, new PipeConfig(url, Data.class));
+        Pipe stubPipe = pipeline.pipe(Data.class, new PipeConfig());
 
         assertNotNull("received pipe", stubPipe);
         assertEquals("verifying the given URL", "http://myStubUrl/myStubProject", stubPipe.getUrl().toString());
@@ -64,7 +64,7 @@ public class PipelineTest {
     @Test
     public void testAddPipeWithEndpoint() throws MalformedURLException {
         Pipeline pipeline = new Pipeline(url);
-        final PipeConfig config = new PipeConfig(url, Data.class);
+        final PipeConfig config = new PipeConfig();
         config.setName("bad name");
         config.setEndpoint("foo");
         Pipe newPipe = pipeline.pipe(Data.class, config);
@@ -75,7 +75,7 @@ public class PipelineTest {
     @Test
     public void testAddPipeWithType() throws MalformedURLException {
         Pipeline pipeline = new Pipeline(url);
-        final PipeConfig config = new PipeConfig(url, Data.class);
+        final PipeConfig config = new PipeConfig();
         config.setName("foo");
         config.setType(REST);
         Pipe newPipe = pipeline.pipe(Data.class, config);
@@ -88,7 +88,7 @@ public class PipelineTest {
         URL otherURL = new URL("http://server.com/otherContext/");
 
         Pipeline pipeline = new Pipeline(url);
-        final PipeConfig config = new PipeConfig(otherURL, Data.class);
+        final PipeConfig config = new PipeConfig(otherURL);
         config.setName("foo");
         Pipe newPipe = pipeline.pipe(Data.class, config);
 
@@ -99,7 +99,7 @@ public class PipelineTest {
     @Test
     public void testAddPipeWithEndpointAndType() throws MalformedURLException {
         Pipeline pipeline = new Pipeline(url);
-        final PipeConfig config = new PipeConfig(url, Data.class);
+        final PipeConfig config = new PipeConfig();
         config.setName("foo");
         config.setEndpoint("bar");
         config.setType(REST);
@@ -114,7 +114,7 @@ public class PipelineTest {
         URL otherURL = new URL("http://server.com/otherContext/");
 
         Pipeline pipeline = new Pipeline(url);
-        final PipeConfig config = new PipeConfig(otherURL, Data.class);
+        final PipeConfig config = new PipeConfig(otherURL);
         config.setName("bad name");
         config.setEndpoint("foo");
         Pipe newPipe = pipeline.pipe(Data.class, config);
@@ -127,7 +127,7 @@ public class PipelineTest {
         URL otherURL = new URL("http://server.com/otherContext/");
 
         Pipeline pipeline = new Pipeline(url);
-        final PipeConfig config = new PipeConfig(otherURL, Data.class);
+        final PipeConfig config = new PipeConfig(otherURL);
         config.setType(REST);
         Pipe newPipe = pipeline.pipe(Data.class, config);
 
@@ -138,7 +138,7 @@ public class PipelineTest {
     @Test
     public void testGetExistingPipe() {
         Pipeline pipeline = new Pipeline(url);
-        final PipeConfig config = new PipeConfig(url, Data.class);
+        final PipeConfig config = new PipeConfig();
         config.setName("foo");
         pipeline.pipe(Data.class, config);
 
@@ -157,7 +157,7 @@ public class PipelineTest {
     @Test
     public void testRemoveExistingPipe() {
         Pipeline pipeline = new Pipeline(url);
-        final PipeConfig config = new PipeConfig(url, Data.class);
+        final PipeConfig config = new PipeConfig();
         config.setName("foo");
         pipeline.pipe(Data.class, config);
 

@@ -19,7 +19,6 @@ package org.aerogear.android.impl.pipeline;
 
 import com.google.gson.GsonBuilder;
 import org.aerogear.android.authentication.AuthenticationModule;
-import org.aerogear.android.core.TypeDescriptor;
 import org.aerogear.android.pipeline.PipeType;
 
 import java.net.URL;
@@ -33,11 +32,10 @@ public final class PipeConfig {
     private GsonBuilder gsonBuilder;
     private AuthenticationModule authModule;
 
-    public PipeConfig(URL baseURL, Class klass) {
+    public PipeConfig() {}
+
+    public PipeConfig(URL baseURL) {
         this.baseURL = baseURL;
-        this.name = klass.getSimpleName().toLowerCase();
-        this.endpoint = name;
-        this.type = PipeTypes.REST;
     }
 
     public String getName() {
